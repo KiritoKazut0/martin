@@ -2,12 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permisos existentes -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE"/>
 
+    <!-- Permisos adicionales necesarios para el servicio -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
     <application
+        android:name=".src.features.tasks.presentation.services.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,6 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tareas"
         tools:targetApi="31">
+
+        <!-- Activity existente -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,10 +32,35 @@
             android:theme="@style/Theme.Tareas">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".src.core.service.FcmService"
+                android:exported="false">
+
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"> </action>
+            </intent-filter>
+
+            </service>
+
+
+        <!-- SERVICIO DE SINCRONIZACIÓN - ESTO FALTABA -->
+        <service
+            android:name=".src.features.tasks.presentation.services.SyncTaskService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
+
+        <!-- RECEIVER DE CONECTIVIDAD - ESTO TAMBIÉN FALTABA -->
+        <receiver
+            android:name=".src.features.tasks.presentation.receivers.ConnectivityReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

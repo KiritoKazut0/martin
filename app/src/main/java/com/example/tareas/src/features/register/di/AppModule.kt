@@ -11,7 +11,7 @@ import com.example.tareas.src.features.register.domain.repository.SessionReposit
 import com.example.tareas.src.features.register.domain.usecase.AuthUseCase
 
 object AppModule  {
-   private val dataStoreManager = AppModule.dataStoreManager
+    val dataStoreManager = AppModule.dataStoreManager
 
     private val sessionRepository: SessionRepository by lazy {
         SessionRepositoryImpl(dataStoreManager)

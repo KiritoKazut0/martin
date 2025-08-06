@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -48,7 +49,9 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
-
+    implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.core.ktx)

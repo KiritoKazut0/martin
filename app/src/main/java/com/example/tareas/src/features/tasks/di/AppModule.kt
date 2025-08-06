@@ -4,6 +4,7 @@ package com.example.tareas.src.features.tasks.di
 import com.example.tareas.src.core.di.NetworkModule
 import com.example.tareas.src.core.di.RoomModule
 import com.example.tareas.src.core.network.http.RetrofitHelper
+import com.example.tareas.src.core.service.FcmServiceApi
 import com.example.tareas.src.core.userstorage.data.UserStorageRepositoryImpl
 import com.example.tareas.src.core.userstorage.domain.UserStorageRepository
 import com.example.tareas.src.features.login.di.AppModule
@@ -18,19 +19,23 @@ import com.example.tareas.src.features.tasks.domain.usecase.UpdateTaskUseCase
 
 
 object AppModule {
-    private val dataStoreManager = AppModule.dataStoreManager
-    private val networkManager = NetworkModule.networkManager
+     val dataStoreManager = AppModule.dataStoreManager
+     val networkManager = NetworkModule.networkManager
 
     private val taskService: TaskService by lazy {
         RetrofitHelper.getService(TaskService::class.java)
     }
 
+    val fcmService: FcmServiceApi by lazy {
+        RetrofitHelper.getService(FcmServiceApi::class.java)
+    }
 
-    private val taskRepository: TaskRepository by lazy {
+
+     val taskRepository: TaskRepository by lazy {
         TaskRepositoryImpl(taskService)
     }
 
-    private val localTaskRepository: TaskRepository by lazy {
+     val localTaskRepository: TaskRepository by lazy {
         val dao = RoomModule.getTaskDao()
         TaskLocalRepositoryImpl(dao)
     }

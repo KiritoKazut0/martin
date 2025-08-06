@@ -11,7 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitHelper {
-    private const val BaseUrl = "https://tasks.wildroid.space"
+//    private const val BaseUrl = "https://tasks.wildroid.space"
+    private const val BaseUrl = "https://fxrq4n51-5000.usw3.devtunnels.ms"
     private const val TIMEOUT = 20L
 
     private var retrofit: Retrofit? =  null
